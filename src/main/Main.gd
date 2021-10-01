@@ -5,6 +5,7 @@ onready var objective: Node2D = $Objective
 onready var score_and_speed: Label = $UI/Control/Label
 onready var game_over_overlay: Control = $GameOverLayer/GameOver
 onready var final_score: Label = $GameOverLayer/GameOver/VBoxContainer/Label
+onready var coin_sound: AudioStreamPlayer = $CoinSound
 
 const SCORE_AND_SPEED_TEXT_FORMAT: String = "score: %s\nspeed: %s"
 
@@ -37,6 +38,7 @@ func add_score() -> void:
 	speed += 0.2
 	score_and_speed.text = SCORE_AND_SPEED_TEXT_FORMAT % [score, speed]
 	respawn_obective()
+	coin_sound.play()
 
 func game_over() -> void:
 	game_over_overlay.visible = true
@@ -44,7 +46,7 @@ func game_over() -> void:
 	final_score.text = "final score: " + str(final_score_value)
 
 func respawn_obective() -> void:
-	objective.rotate(rand_range(30, 270))
+	objective.rotate(rand_range(30, 210))
 
 func _on_Button_button_up() -> void:
 	get_tree().reload_current_scene()
